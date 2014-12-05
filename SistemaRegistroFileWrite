@@ -1,0 +1,66 @@
+//Este crea el archivo
+import java.util.Scanner;
+import java.io.*;
+public class fileWriteEstudiantes
+{
+	public static void main(String[] args) throws IOException
+	{
+		String fileName, est, numEst;
+		int fin, count, repeat;
+		double punt, valor, nota1 = 0, nota2 = 0, nota3 = 0;
+		char letra1, letra2, letra3;
+
+		Scanner key = new Scanner(System.in);
+
+		System.out.print("Entre el nombre que desea para el archivo: ");
+		fileName = key.nextLine();
+		System.out.print("¿De cuántos estudiantes entrará información? ");
+		fin = key.nextInt();
+		PrintWriter file = new PrintWriter(fileName);
+
+		for (count = 1; count <= fin; count++)
+		{
+			key.nextLine();
+			System.out.println();
+			System.out.print("Entre el nombre del estudiante " + count + ": ");
+			est = key.nextLine();
+			//System.out.print("Entre el número del estudiante " + count + ": ");
+			//numEst = key.nextLine();
+			for (repeat = 1; repeat <= 3; repeat++ )
+			{
+				System.out.print("Entre la puntuación obtenida en la nota " + repeat + ": ");
+				punt = key.nextDouble();
+				System.out.print("Entre el valor total de la nota " + repeat + ": ");
+				valor = key.nextDouble();
+
+				while (punt>valor || punt<0)
+				{
+					System.out.print("Entre la puntuación obtenida en la nota " + repeat + ": ");
+					punt = key.nextDouble();
+					System.out.print("Entre el valor total de la nota " + repeat + ": ");
+					valor = key.nextDouble();
+				}
+				if (repeat == 1)
+					nota1 = (punt/valor)*100;
+				else if (repeat ==2)
+					nota2 = (punt/valor)*100;
+				else
+					nota3 = (punt/valor)*100;
+				
+				/*if (nota1>=90)
+					letra1 = 'A';
+				else if (nota1>=80)
+					letra1 = 'B';
+				else if (nota1>=70)
+					letra1 = 'C';
+				else if (nota1>=60)
+					letra1 = 'D';
+				else
+					letra1 = 'F';*/
+			}			
+			file.println(Math.round(nota1) + " " + Math.round(nota2) + " " + Math.round(nota3) + " " + est);
+		}
+		file.close();
+		System.out.print("Se ha guardado la información.");
+	}
+}
